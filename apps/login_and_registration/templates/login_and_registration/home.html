@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="{% static 'login_and_registration/css/styles.css' %}">
     </head>
     <body>
-        <h1>Welcome Home, {{ request.session.user.first_name }} {{ request.session.user.last_name}}</h1>
+        <h1>Welcome Home, {{ request.session.user.first_name }} {{ request.session.user.last_name}} #{{ request.session.user.id }}</h1>
         <h4><a href="/logout">Logout</a></h4>
         <!-- {% if reg_message %}<h3>{{ reg_message }}</h3>{% endif %} -->
         <!-- {% if login_message %}<h3>{{ login_message }}</h3>{% endif %} -->
@@ -18,15 +18,14 @@
             </thead>
             <tbody>
                 <!--  pass in all users not just the NEW USER  -->
-                {{ request.session.user }}
-                {% for user in request.session.user %}
+                {% for user in users %}
                     <tr>
-                        <td>{{ request.session.user.first_name }}</td>
-                        <td>{{ request.session.user.last_name}}</td>
-                        <td>{{ request.session.user.email }}</td>
-                        <td>{{ request.session.user.password }}</td>
-                        <td>{{ request.session.user.created_at }}</td>
-                        <td><a href="/home/{{ request.session.user.id }}/delete">Remove</a></td>
+                        <td>{{ user.first_name }}</td>
+                        <td>{{ user.last_name}}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.password }}</td>
+                        <td>{{ user.created_at }}</td>
+                        <td><a href="/home/{{ user.id }}/delete">Remove</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

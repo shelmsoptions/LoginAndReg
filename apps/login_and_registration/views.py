@@ -13,7 +13,7 @@ def user_in_session(request):
 
 def index(request):
     if user_in_session(request):
-        print 'index - user in session = True'
+        # print 'index - user in session = True'
         # VV  this is where to plug-in the app  VV   *****
         return render(request, 'login_and_registration/login.html')
     # context = {
@@ -35,16 +35,17 @@ def register_login(request):
         }
         # print 'errors from register_login method view: ', errors
         return render(request, 'login_and_registration/login.html', context)
-    print result[1]
+    # print result[1]
     return login_user(request, result[1])
 
 
 def login_user(request, user):
-    print user
+    # print user
     request.session['user'] = {
         'user_id': user.id,
         'first_name': user.first_name,
         'last_name': user.last_name,
+        # 'users': User.objects.all(),
         # 'errors': errors,
     }
     # print request.session['user']
@@ -56,11 +57,14 @@ def login_user(request, user):
     # }
 
     # VV  this is where to plug-in the app  VV   *****
-    # return render(request, 'login_and_registration/home.html')
+    # return render(request, 'login_and_registration/home.html', context)
     return redirect('LogReg:home')
 
 def home(request):
-    return render(request, 'login_and_registration/home.html')
+    context = {
+        'users': User.objects.all(),
+    }
+    return render(request, 'login_and_registration/home.html', context)
 
 def delete(request):
     pass
