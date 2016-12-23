@@ -46,8 +46,10 @@ def login_user(request, user):
     return redirect('LogReg:home')
 
 def home(request):
-    context = { 'users': User.objects.all(), }
-    return render(request, 'login_and_registration/home.html', context)
+    if user_in_session(request):
+        context = { 'users': User.objects.all(), }
+        return render(request, 'login_and_registration/home.html', context)
+    return redirect('LogReg:index')
 
 def delete(request, id):
     User.objects.filter(id=id).delete()
