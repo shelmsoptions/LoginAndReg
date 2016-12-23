@@ -13,12 +13,8 @@ def user_in_session(request):
 
 def index(request):
     if user_in_session(request):
-        # print 'index - user in session = True'
         # VV  this is where to plug-in the app  VV   *****
         return render(request, 'login_and_registration/login.html')
-    # context = {
-    #
-    # }
     return render(request, 'login_and_registration/login.html')
 
 def register_login(request):
@@ -28,11 +24,9 @@ def register_login(request):
     elif request.POST['action'] == 'login':
         result = User.objects.login_validation(request)
     if result[0] == False:
-        print 'logged-in? False - incorrect data'
+        # print 'logged-in? False - incorrect data'
         request.session['errors'] = result[1]
-        context = {
-            'errors': request.session['errors'],
-        }
+        context = { 'errors': request.session['errors'], }
         # print 'errors from register_login method view: ', errors
         return render(request, 'login_and_registration/login.html', context)
     # print result[1]
@@ -48,26 +42,16 @@ def login_user(request, user):
         # 'users': User.objects.all(),
         # 'errors': errors,
     }
-    # print request.session['user']
-    # context = {
-    #     'user_id': user.id,
-    #     'first_name': user.first_name,
-    #     'last_name': user.last_name,
-    #     # 'errors': errors,
-    # }
-
     # VV  this is where to plug-in the app  VV   *****
-    # return render(request, 'login_and_registration/home.html', context)
     return redirect('LogReg:home')
 
 def home(request):
-    context = {
-        'users': User.objects.all(),
-    }
+    context = { 'users': User.objects.all(), }
     return render(request, 'login_and_registration/home.html', context)
 
-def delete(request):
-    pass
+def delete(request, id):
+    User.objects.filter(id=id).delete()
+    return redirect('/home')
 
 def logout(request):
     request.session.clear()

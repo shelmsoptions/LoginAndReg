@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="{% static 'login_and_registration/css/styles.css' %}">
     </head>
     <body>
-        <h1>Welcome Home, {{ request.session.user.first_name }} {{ request.session.user.last_name}} #{{ request.session.user.id }}</h1>
+        <h3>Welcome Home, {{ request.session.user.first_name }} {{ request.session.user.last_name}} - User#{{ request.session.user.user_id }}</h3>
         <h4><a href="/logout">Logout</a></h4>
         <!-- {% if reg_message %}<h3>{{ reg_message }}</h3>{% endif %} -->
         <!-- {% if login_message %}<h3>{{ login_message }}</h3>{% endif %} -->

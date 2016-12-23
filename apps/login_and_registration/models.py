@@ -57,7 +57,10 @@ class UserManager(models.Manager):
                 print user.id, password
             # if bcrypt.hashpw(password, user.password.encode()):
                 print 'hashed: ', hashed
-            return (True, user)
+                return (True, user)
+            else:
+                errors.append('- Incorrect Email and/or Password')
+                return (False, errors)
         except:
             errors.append('- Incorrect Email and/or Password')
             return (False, errors)
